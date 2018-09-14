@@ -84,18 +84,26 @@ def getMaxTemp(maxLines, max):
 
 #function to search for a certain year and pull the mean temperature of that year
 def searchYear(maxLines, year):
+    #declare sum to find the avg
     sum = 0
+
+    #iterate through the file until the last line is reached
     for i in range(maxLines):
 
+        #splitting numbers like before
         lineInfo = getLines(i)
         lineInfo = lineInfo.split(',')
+
+        #if the zeroth index is equal to the year that is inputted, take the sum of the temperatures corresponding to that year
         if int(lineInfo[0]) == int(year):
             for j in range(1, 13):
                 sum += float(lineInfo[j])
+    #calculate meaning by taking the sum/amount of months (12)
     mean = sum / 12
     mean = round(mean, 2)
     return mean
-                
+
+#initializing variables  
 maxLines = numOfLines()
 minYear = 0
 maxYear = 0
@@ -103,6 +111,7 @@ minMonth = 0
 maxMonth = 0
 min = 100.00
 max = -100.00
+
 min, minYear, minMonth = getMinTemp(maxLines, min)
 
 max, maxYear, maxMonth = getMaxTemp(maxLines, max)
@@ -117,6 +126,7 @@ year = input("What year would you like to find the mean temperature of? ")
 
 mean = searchYear(maxLines, year)
 
+#if the mean is zero or below, then print that the year inputted is unavailable in this dataset
 if mean > 0:
     print("The mean temperature for the year", year, "is:", mean, "degrees\n")
 
