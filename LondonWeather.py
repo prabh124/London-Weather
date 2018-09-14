@@ -1,9 +1,10 @@
 #Command used to read the text file and print the line of the hotel
 def getLines(x):
     commandFile = open('London Temperature.txt', 'r') 
-    job = commandFile.readlines()
-    return job[x]
+    lineInfo = commandFile.readlines()
+    return lineInfo[x]
 
+#count the number of lines inside the file, this will be used for later functions
 def numOfLines():
     with open('London Temperature.txt') as r:
         lines = 0
@@ -11,6 +12,7 @@ def numOfLines():
             lines += 1
     return lines
 
+#Helper function to clear clutter in the main. Used to identify what index the month is attached to
 def checkMonth(monthNum):
     if monthNum is 1:
         return 'January'
@@ -37,22 +39,32 @@ def checkMonth(monthNum):
     else:
         return 'December'
 
+#Coldest temp function
 def getMinTemp(maxLines, min):
+
+    #Iterate through the text file until it reaches the last line
     for i in range(maxLines):
 
+        #iterate through each index for the specified line
         for j in range(1, 13):
 
+            #splitting the numbers everytime a comma is found, used to allow for indexing
             lineInfo = getLines(i)
             lineInfo = lineInfo.split(',')
 
+            #if the number at the index of j is below the minimum (set to 100 to start with), then that becomes the new minimum
             if float(lineInfo[j]) < float(min):
 
                 min = lineInfo[j]
+                #Check the year of the lowest temp at the zeroth index
                 year = lineInfo[0]
+                #month number is equal to the index, then call the checkMonth helper function to attach a name to that index
                 monthNum = j
+
     month = checkMonth(monthNum)
     return min, year, month      
 
+#hottest temperature function, same steps as the coldest except it checks for indexes higher than the previous max
 def getMaxTemp(maxLines, max):
     for i in range(maxLines):
 
@@ -66,9 +78,11 @@ def getMaxTemp(maxLines, max):
                 max = lineInfo[j]
                 year = lineInfo[0]
                 monthNum = j
+
     month = checkMonth(monthNum)
     return max, year, month
 
+#function to search for a certain year and pull the mean temperature of that year
 def searchYear(maxLines, year):
     sum = 0
     for i in range(maxLines):
@@ -94,8 +108,8 @@ min, minYear, minMonth = getMinTemp(maxLines, min)
 max, maxYear, maxMonth = getMaxTemp(maxLines, max)
 
 print("London weather temperature. \n")
-print(minMonth, minYear, "was the coldest month on record with a mean temperature of: " + min, "degrees.\n")
 
+print(minMonth, minYear, "was the coldest month on record with a mean temperature of: " + min, "degrees.\n")
 
 print(maxMonth, maxYear, "was the hottest month on record with a mean temperature of: " + max, "degrees.\n")
 
