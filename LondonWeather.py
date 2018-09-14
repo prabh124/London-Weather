@@ -122,6 +122,7 @@ print(minMonth, minYear, "was the coldest month on record with a mean temperatur
 
 print(maxMonth, maxYear, "was the hottest month on record with a mean temperature of: " + max, "degrees.\n")
 
+#retrieve user input on what year to search for
 year = input("What year would you like to find the mean temperature of? ")
 
 mean = searchYear(maxLines, year)
