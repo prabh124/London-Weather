@@ -1,4 +1,4 @@
-#Command used to read the text file and print the line of the hotel
+#Command used to read the text file and return line info with the corresponding line number
 def getLines(x):
     commandFile = open('London Temperature.txt', 'r') 
     lineInfo = commandFile.readlines()
